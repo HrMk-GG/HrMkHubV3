@@ -1,0 +1,54 @@
+local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
+
+-- メインウィンドウ作成
+local MainWindow = Rayfield:CreateWindow({
+    Name = "Test Hub",
+    LoadingTitle = "Loading...",
+    LoadingSubtitle = "by HrMk",
+    ConfigurationSaving = {
+       Enabled = true,
+       FolderName = nil,
+       FileName = "TestHubConfig"
+    },
+    KeySystem = false,
+})
+
+-- タブ作成
+local MainTab = MainWindow:CreateTab("Main", 4483362458) -- アイコンは任意
+
+-- 全員キルボタン
+MainTab:CreateButton({
+    Name = "全員キル (テスト用)",
+    Callback = function()
+        local Players = game:GetService("Players")
+        local localPlayer = Players.LocalPlayer
+        for _, player in pairs(Players:GetPlayers()) do
+            if player ~= localPlayer and player.Character and player.Character:FindFirstChild("Humanoid") then
+                player.Character.Humanoid.Health = 0
+            end
+        end
+        print("全員キル実行（テスト用）")
+    end
+})
+
+-- サンプルで追加：Infinite Jump
+local InfiniteJumpEnabled = false
+local UIS = game:GetService("UserInputService")
+UIS.JumpRequest:Connect(function()
+    if InfiniteJumpEnabled then
+        local plr = game.Players.LocalPlayer
+        local char = plr.Character
+        if char and char:FindFirstChildOfClass("Humanoid") then
+            char:FindFirstChildOfClass("Humanoid"):ChangeState("Jumping")
+        end
+    end
+end)
+
+MainTab:CreateToggle({
+    Name = "Infinite Jump",
+    CurrentValue = false,
+    Flag = "InfiniteJumpToggle",
+    Callback = function(state)
+        InfiniteJumpEnabled = state
+    end,
+})
