@@ -1,5 +1,6 @@
 -- Load Rayfield
-local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/HrMk-GG/HrMkHubV3/refs/heads/main/HrMkHubV3.lua'))()
+local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/HrMk-GG/HrMkHubV3/main/HrMkHubV3.lua'))()
+
 
 -- Create main window
 local MainWindow = Rayfield:CreateWindow({
